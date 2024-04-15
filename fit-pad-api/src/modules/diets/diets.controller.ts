@@ -1,4 +1,13 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { Diet } from '@entities';
 import { CreateDietDto, UpdateDietDto } from './dto';
 import { DietsService } from './diets.service';
 
@@ -20,5 +29,15 @@ export class DietsController {
     @Body() updateDietDto: UpdateDietDto,
   ) {
     return this.dietsService.updateDiet(dietId, updateDietDto);
+  }
+
+  @Get('/patient/:patientId')
+  async getDietsByPatientId(@Param('id') patientId: number): Promise<Diet[]> {
+    return this.dietsService.getDietsByPatientId(patientId);
+  }
+
+  @Delete('/:dietId')
+  async deleteDiet(@Param('dietId') dietId: number) {
+    return this.dietsService.deleteDiet(dietId);
   }
 }

@@ -111,4 +111,28 @@ export class DietsService {
 
     await this.dietRepository.save(diet);
   }
+
+  async getDietsByPatientId(patientId: number) {
+    const patient = await this.patientRepository
+      .findOneByOrFail({
+        id: patientId,
+      })
+      .catch(() => {
+        throw new PatientNotFoundException();
+      });
+
+    return this.dietRepository.findByPatient(patient);
+  }
+
+  async deleteDiet(dietId: number) {
+    const diet = await this.dietRepository.findWithMealRelations(dietId);
+    const { meals } = diet;
+
+    if (meals?.length) {
+      await this.removeMealItems(meals);
+      await this.mealRepository.remove(meals);
+    }
+
+    this.dietRepository.remove(diet);
+  }
 }
