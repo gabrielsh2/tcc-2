@@ -95,9 +95,8 @@ export class DietsService {
     if (name) {
       diet.name = name;
     }
-    if (observations) {
-      diet.observations = observations;
-    }
+
+    diet.observations = observations;
 
     if (meals?.length) {
       await this.removeMealItems(diet.meals);

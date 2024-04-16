@@ -3,3 +3,7 @@ export { Patient } from './patient.entity';
 export { Diet } from './diet.entity';
 export { Meal } from './meal.entity';
 export { MealItem } from './meal-item.entity';
+export { SubstitutionList } from './substitution-list.entity';
+export { FoodGroup } from './food-group.entity';
+export { FoodGroupItem } from './food-group-item.entity';
+export { MedicalPrescription } from './medical-prescription.entity';

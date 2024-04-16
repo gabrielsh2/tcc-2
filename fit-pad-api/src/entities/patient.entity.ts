@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Nutritionist } from './nutritionist.entity';
 import { Diet } from './diet.entity';
+import { SubstitutionList } from './substitution-list.entity';
 
 @Entity()
 export class Patient {
@@ -27,4 +30,11 @@ export class Patient {
 
   @OneToMany(() => Diet, (diet) => diet.patient)
   diets: Diet[];
+
+  @OneToOne(
+    () => SubstitutionList,
+    (substitutionList) => substitutionList.patient,
+  )
+  @JoinColumn()
+  substitutionList: SubstitutionList;
 }

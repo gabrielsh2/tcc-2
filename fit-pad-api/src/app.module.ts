@@ -5,8 +5,19 @@ import {
   DietsModule,
   NutritionistModule,
   PatientsModule,
+  SubstitutionListModule,
+  MedicalPrescriptionModule,
 } from '@modules';
-import { Diet, Meal, MealItem, Nutritionist, Patient } from '@entities';
+import {
+  Diet,
+  FoodGroup,
+  FoodGroupItem,
+  Meal,
+  MealItem,
+  Nutritionist,
+  Patient,
+  SubstitutionList,
+} from '@entities';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -19,13 +30,24 @@ import { AppService } from './app.service';
       username: 'root',
       password: 'toor',
       database: 'fitPad',
-      entities: [Diet, Nutritionist, Patient, Meal, MealItem],
+      entities: [
+        Diet,
+        Nutritionist,
+        Patient,
+        Meal,
+        MealItem,
+        SubstitutionList,
+        FoodGroup,
+        FoodGroupItem,
+      ],
       synchronize: true,
     }),
     AuthModule,
     PatientsModule,
     NutritionistModule,
     DietsModule,
+    SubstitutionListModule,
+    MedicalPrescriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
