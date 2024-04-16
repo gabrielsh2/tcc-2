@@ -21,4 +21,10 @@ export class MedicalPrescription {
   @ManyToOne(() => Patient)
   @JoinColumn()
   patient: Patient;
+
+  constructor(title: string, description: string, patient: Patient) {
+    this.title = title;
+    this.description = description;
+    this.patient = patient;
+  }
 }
