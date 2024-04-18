@@ -4,3 +4,4 @@ export { NutritionistModule } from './nutritionist/nutritionist.module';
 export { DietsModule } from './diets/diets.module';
 export { SubstitutionListModule } from './substitution-list/substitution-list.module';
 export { MedicalPrescriptionModule } from './medical-prescription/medical-prescription.module';
+export { TaskModule } from './task/task.module';

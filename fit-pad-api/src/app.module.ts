@@ -7,6 +7,7 @@ import {
   PatientsModule,
   SubstitutionListModule,
   MedicalPrescriptionModule,
+  TaskModule,
 } from '@modules';
 import {
   Diet,
@@ -18,6 +19,7 @@ import {
   Nutritionist,
   Patient,
   SubstitutionList,
+  Task,
 } from '@entities';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -41,6 +43,7 @@ import { AppService } from './app.service';
         FoodGroup,
         FoodGroupItem,
         MedicalPrescription,
+        Task,
       ],
       synchronize: true,
     }),
@@ -50,6 +53,7 @@ import { AppService } from './app.service';
     DietsModule,
     SubstitutionListModule,
     MedicalPrescriptionModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
