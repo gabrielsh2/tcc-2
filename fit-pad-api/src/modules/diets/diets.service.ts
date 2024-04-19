@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Diet, Meal, MealItem, Patient } from '@entities';
 import { PatientNotFoundException } from '@exceptions';
 import { DietRepository } from '@repositories';
-import { CreateDietDto, MealDto, UpdateDietDto } from './dto';
+import { CreateDietDto, MealDto, UpdateDietDto } from './dtos';
 
 @Injectable()
 export class DietsService {

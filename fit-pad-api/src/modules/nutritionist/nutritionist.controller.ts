@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Param } from '@nestjs/common';
 import { NutritionistService } from './nutritionist.service';
-import { BindPatientDto } from './dto';
+import { BindPatientDto } from './dtos';
 
 @Controller('nutritionist')
 export class NutritionistController {

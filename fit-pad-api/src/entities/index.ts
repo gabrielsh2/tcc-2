@@ -8,3 +8,4 @@ export { FoodGroup } from './food-group.entity';
 export { FoodGroupItem } from './food-group-item.entity';
 export { MedicalPrescription } from './medical-prescription.entity';
 export { Task } from './task.entity';
+export { Anthropometry } from './anthropometry.entity';

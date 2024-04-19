@@ -8,8 +8,10 @@ import {
   SubstitutionListModule,
   MedicalPrescriptionModule,
   TaskModule,
+  AnthropometryModule,
 } from '@modules';
 import {
+  Anthropometry,
   Diet,
   FoodGroup,
   FoodGroupItem,
@@ -44,6 +46,7 @@ import { AppService } from './app.service';
         FoodGroupItem,
         MedicalPrescription,
         Task,
+        Anthropometry,
       ],
       synchronize: true,
     }),
@@ -54,6 +57,7 @@ import { AppService } from './app.service';
     SubstitutionListModule,
     MedicalPrescriptionModule,
     TaskModule,
+    AnthropometryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

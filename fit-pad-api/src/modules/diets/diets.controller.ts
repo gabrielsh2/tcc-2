@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { Diet } from '@entities';
-import { CreateDietDto, UpdateDietDto } from './dto';
+import { CreateDietDto, UpdateDietDto } from './dtos';
 import { DietsService } from './diets.service';
 
 @Controller('diets')
