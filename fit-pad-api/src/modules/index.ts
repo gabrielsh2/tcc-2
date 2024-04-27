@@ -6,3 +6,4 @@ export { SubstitutionListModule } from './substitution-list/substitution-list.mo
 export { MedicalPrescriptionModule } from './medical-prescription/medical-prescription.module';
 export { TaskModule } from './task/task.module';
 export { AnthropometryModule } from './anthropometry/anthropometry.module';
+export { AgendaModule } from './agenda/agenda.module';

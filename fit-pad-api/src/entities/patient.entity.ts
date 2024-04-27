@@ -10,6 +10,7 @@ import {
 import { Nutritionist } from './nutritionist.entity';
 import { Diet } from './diet.entity';
 import { SubstitutionList } from './substitution-list.entity';
+import { Agenda } from './agenda.entity';
 
 @Entity()
 export class Patient {
@@ -30,6 +31,9 @@ export class Patient {
 
   @OneToMany(() => Diet, (diet) => diet.patient)
   diets: Diet[];
+
+  @OneToMany(() => Agenda, (agenda) => agenda.patient)
+  agendas: Agenda[];
 
   @OneToOne(
     () => SubstitutionList,

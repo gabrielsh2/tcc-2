@@ -6,3 +6,5 @@ export { SubstitutionListNotFoundException } from './substitution-list-not-found
 export { MedicalPrescriptionNotFoundException } from './medical-prescription-not-found.exception';
 export { TaskNotFoundException } from './task-not-found.exception';
 export { AnthropometryNotFoundException } from './anthropometry-not-found.exception';
+export { AgendaNotFoundException } from './agenda-not-found.exception';
+export { DailyTaskNotFoundException } from './daily-task-not-found.exception';
