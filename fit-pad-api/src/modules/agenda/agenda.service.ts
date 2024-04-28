@@ -1,6 +1,7 @@
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { startOfMonth, endOfMonth } from 'date-fns';
 import { Agenda, DailyTask, Patient, Task } from '@entities';
 import {
   AgendaNotFoundException,
@@ -121,5 +122,30 @@ export class AgendaService {
     dailyTask.status = status;
 
     await this.dailyTaskRepository.save(dailyTask);
+  }
+
+  async findDailyTasks(agendaId: number): Promise<DailyTask[]> {
+    const agenda = await this.agendaRepository
+      .findOneOrFail({
+        where: { id: agendaId },
+        relations: { patient: true },
+      })
+      .catch(() => {
+        throw new AgendaNotFoundException();
+      });
+
+    return this.dailyTaskRepository.findBy({ agenda });
+  }
+
+  async findAgendasByMonth(year: number, month: number): Promise<Agenda[]> {
+    const monthDate = new Date(year, month - 1);
+    const minDate = startOfMonth(monthDate);
+    const maxDate = endOfMonth(monthDate);
+
+    return this.agendaRepository.find({
+      where: {
+        registerDate: Between(minDate, maxDate),
+      },
+    });
   }
 }

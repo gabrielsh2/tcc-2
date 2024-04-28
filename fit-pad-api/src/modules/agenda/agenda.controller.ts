@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AgendaService } from './agenda.service';
 import {
   CreateAgendaDto,
@@ -7,6 +7,7 @@ import {
   RegisterMoodEmojiDto,
   UpdateDailyTaskDto,
 } from './dtos';
+import { Agenda, DailyTask } from '@entities';
 
 @Controller('agenda')
 export class AgendaController {
@@ -47,5 +48,20 @@ export class AgendaController {
     @Body() updateDailyTaskDto: UpdateDailyTaskDto,
   ): Promise<void> {
     return this.agendaService.updateDailyTask(dailyTaskId, updateDailyTaskDto);
+  }
+
+  @Get('/:agendaId/daily-task')
+  async findDailyTasks(
+    @Param('agendaId') agendaId: number,
+  ): Promise<DailyTask[]> {
+    return this.agendaService.findDailyTasks(agendaId);
+  }
+
+  @Get('/:year/:month')
+  async findAgendasByMonth(
+    @Param('year') year: number,
+    @Param('month') month: number,
+  ): Promise<Agenda[]> {
+    return this.agendaService.findAgendasByMonth(year, month);
   }
 }
