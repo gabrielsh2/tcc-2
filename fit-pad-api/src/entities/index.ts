@@ -11,3 +11,5 @@ export { Task } from './task.entity';
 export { Anthropometry } from './anthropometry.entity';
 export { Agenda } from './agenda.entity';
 export { DailyTask } from './daily-task.entity';
+export { MealRecord } from './meal-record.entity';
+export { MealRecordItem } from './meal-record-item.entity';

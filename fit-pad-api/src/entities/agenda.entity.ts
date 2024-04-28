@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Patient } from './patient.entity';
 import { DailyTask } from './daily-task.entity';
+import { MealRecord } from './meal-record.entity';
 
 @Entity()
 export class Agenda {
@@ -24,6 +25,9 @@ export class Agenda {
 
   @OneToMany(() => DailyTask, (dailyTask) => dailyTask.agenda)
   dailyTasks: DailyTask[];
+
+  @OneToMany(() => MealRecord, (mealRecord) => mealRecord.agenda)
+  mealRecords: MealRecord[];
 
   constructor(registerDate: Date, patient: Patient) {
     this.registerDate = registerDate;

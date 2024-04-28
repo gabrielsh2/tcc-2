@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Patient } from './patient.entity';
 import { Meal } from './meal.entity';
+import { MealRecord } from './meal-record.entity';
 
 @Entity()
 export class Diet {
@@ -24,6 +25,9 @@ export class Diet {
 
   @OneToMany(() => Meal, (meal) => meal.diet)
   meals: Meal[];
+
+  @OneToMany(() => MealRecord, (mealRecord) => mealRecord.diet)
+  mealRecords: MealRecord[];
 
   constructor(
     name: string,

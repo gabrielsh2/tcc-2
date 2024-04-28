@@ -8,3 +8,4 @@ export { TaskNotFoundException } from './task-not-found.exception';
 export { AnthropometryNotFoundException } from './anthropometry-not-found.exception';
 export { AgendaNotFoundException } from './agenda-not-found.exception';
 export { DailyTaskNotFoundException } from './daily-task-not-found.exception';
+export { MealRecordNotFoundException } from './meal-record-not-found.exception';
