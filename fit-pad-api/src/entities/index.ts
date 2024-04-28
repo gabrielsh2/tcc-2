@@ -13,3 +13,4 @@ export { Agenda } from './agenda.entity';
 export { DailyTask } from './daily-task.entity';
 export { MealRecord } from './meal-record.entity';
 export { MealRecordItem } from './meal-record-item.entity';
+export { DailyNote } from './daily-note.entity';

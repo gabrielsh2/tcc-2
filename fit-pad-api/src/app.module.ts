@@ -11,10 +11,12 @@ import {
   AnthropometryModule,
   AgendaModule,
   MealRecordModule,
+  DailyNoteModule,
 } from '@modules';
 import {
   Agenda,
   Anthropometry,
+  DailyNote,
   DailyTask,
   Diet,
   FoodGroup,
@@ -57,6 +59,7 @@ import { AppService } from './app.service';
         DailyTask,
         MealRecord,
         MealRecordItem,
+        DailyNote,
       ],
       synchronize: true,
     }),
@@ -70,6 +73,7 @@ import { AppService } from './app.service';
     AnthropometryModule,
     AgendaModule,
     MealRecordModule,
+    DailyNoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

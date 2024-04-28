@@ -8,6 +8,7 @@ import {
 import { Patient } from './patient.entity';
 import { DailyTask } from './daily-task.entity';
 import { MealRecord } from './meal-record.entity';
+import { DailyNote } from './daily-note.entity';
 
 @Entity()
 export class Agenda {
@@ -28,6 +29,9 @@ export class Agenda {
 
   @OneToMany(() => MealRecord, (mealRecord) => mealRecord.agenda)
   mealRecords: MealRecord[];
+
+  @OneToMany(() => DailyNote, (dailyNote) => dailyNote.agenda)
+  dailyNotes: DailyNote[];
 
   constructor(registerDate: Date, patient: Patient) {
     this.registerDate = registerDate;
