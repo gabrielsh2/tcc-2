@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "module": "CommonJS",
+    "target": "ESNext",
+    "jsx": "react-native",
+    "paths": {
+      "@components": ["components/index"],
+      "@screens": ["screens/index"],
+      "@constants": ["constants/index"],
+      "@hooks": ["hooks/index"],
+      "@services": ["services/index"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

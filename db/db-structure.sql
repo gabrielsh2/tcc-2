@@ -52,7 +52,8 @@ CREATE TABLE substitution_list (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	observations TEXT,
 	patient_id INT,
-	FOREIGN KEY (patient_id) REFERENCES patient(id)
+	FOREIGN KEY (patient_id) REFERENCES patient(id),
+	CONSTRAINT unique_patient_id UNIQUE (patient_id)
 );
 
 CREATE TABLE food_group (
@@ -143,7 +144,7 @@ CREATE TABLE meal_record_item (
 );
 
 
-CREATE TABLE daily_notes (
+CREATE TABLE daily_note (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(50) NOT NULL,
 	description TEXT NOT NULL,
