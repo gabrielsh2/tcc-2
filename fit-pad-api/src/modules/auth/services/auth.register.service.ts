@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RegisterDto } from '../dtos';
-import { Nutritionist, Patient } from '@entities';
 import { Repository } from 'typeorm';
+import { Nutritionist, Patient } from '@entities';
 import { UserType } from '@enums';
+import { DuplicatedUserException } from '@exceptions';
+import { RegisterDto } from '../dtos';
 
 @Injectable()
 export class AuthRegisterService {
@@ -42,6 +43,15 @@ export class AuthRegisterService {
 
   async register(registerDto: RegisterDto) {
     const { userType, email, fullName, password } = registerDto;
+
+    const nutritionist = await this.nutritionistsRepository.findOneBy({
+      email,
+    });
+    const patient = await this.patientsRepository.findOneBy({ email });
+
+    if (nutritionist || patient) {
+      throw new DuplicatedUserException();
+    }
 
     if (userType === UserType.NUTRITIONIST)
       this.registerNutritionist(fullName, email, password);

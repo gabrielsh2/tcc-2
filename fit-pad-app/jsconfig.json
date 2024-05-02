@@ -9,8 +9,9 @@
       "@components": ["components/index"],
       "@screens": ["screens/index"],
       "@constants": ["constants/index"],
-      "@hooks": ["hooks/index"],
-      "@services": ["services/index"]
+      "@services": ["services/index"],
+      "@providers": ["providers/index"],
+      "@utils": ["utils/index"]
     }
   },
   "exclude": ["node_modules"]

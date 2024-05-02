@@ -10,3 +10,4 @@ export { AgendaNotFoundException } from './agenda-not-found.exception';
 export { DailyTaskNotFoundException } from './daily-task-not-found.exception';
 export { MealRecordNotFoundException } from './meal-record-not-found.exception';
 export { DailyNoteNotFoundException } from './daily-note-not-found.exception';
+export { DuplicatedUserException } from './duplicated-user.exception';

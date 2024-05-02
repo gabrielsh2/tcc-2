@@ -1,11 +1,8 @@
-import { useRequest } from '@hooks'
+import { api } from './api'
 
 export function useAuthService() {
-  const { http } = useRequest()
-
   function registerUser(data) {
-    console.log('http', http)
-    return http.post('auth/register', data)
+    return api.post('auth/register', data)
   }
 
   return {

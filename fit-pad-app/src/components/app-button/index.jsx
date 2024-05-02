@@ -1,9 +1,9 @@
-import { StyledButton } from './styles'
+import { StyledPressable, StyledText, style } from './styles'
 
-export function AppButton({ mode = 'contained', onPress, children }) {
+export function AppButton({ onPress, children }) {
   return (
-    <StyledButton mode={mode} onPress={onPress}>
-      {children}
-    </StyledButton>
+    <StyledPressable style={style.button} onPress={onPress}>
+      <StyledText variant='bodyLarge'>{children}</StyledText>
+    </StyledPressable>
   )
 }

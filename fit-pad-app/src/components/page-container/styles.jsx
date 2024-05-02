@@ -1,8 +1,15 @@
-import styled from 'styled-components/native'
+import { COLORS } from '@constants'
+import { StyleSheet } from 'react-native'
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: pink;
-  align-items: center;
-  justify-content: center;
-`
+export const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: COLORS.PRIMARY_LIGHT,
+  },
+  content: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 20,
+    padding: 20,
+  },
+})
