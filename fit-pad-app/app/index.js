@@ -1,3 +1,3 @@
-import { SignUpScreen } from '@screens'
+import { SignInScreen, SignUpScreen } from '@screens'
 
-export default SignUpScreen
+export default SignInScreen

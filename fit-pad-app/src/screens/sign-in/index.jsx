@@ -2,22 +2,23 @@ import { useRef, useState } from 'react'
 import {
   AppButton,
   AppInput,
+  AppLink,
   AppRadio,
   AppText,
   PageContainer,
+  PasswordInput,
 } from '@components'
 import { useAuthService } from '@services'
 import { useSnackbar } from '@providers'
 import { isRequiredFieldsFilled } from '@utils'
 import { USER_TYPE_OPTIONS } from '@constants'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
-import { Stack } from 'expo-router'
 
-export function SignUpScreen() {
+export function SignInScreen() {
   const [formData, setFormData] = useState(INITIAL_FORM)
-  const { registerUser } = useAuthService()
+  const [isLoading, setIsLoading] = useState(false)
+  const { login } = useAuthService()
   const { showErrorMessage, showSuccessMessage } = useSnackbar()
-  const emailRef = useRef()
   const passwordRef = useRef()
 
   function handleSelectType(value) {
@@ -31,11 +32,13 @@ export function SignUpScreen() {
   async function handleSubmit() {
     if (isRequiredFieldsFilled(Object.keys(formData), formData)) {
       try {
-        await registerUser(formData)
+        setIsLoading(true)
+        await login(formData)
         setFormData(INITIAL_FORM)
-        showSuccessMessage('Conta registrada com sucesso!')
       } catch (error) {
-        showErrorMessage(error?.response?.data?.message)
+        showErrorMessage('E-mail ou senha incorretos.')
+      } finally {
+        setIsLoading(false)
       }
     } else {
       showErrorMessage('Preencha todos os campos para prosseguir.')
@@ -44,26 +47,10 @@ export function SignUpScreen() {
 
   return (
     <PageContainer>
-      <Stack.Screen
-        options={
-          {
-            // headerBackground: 'transparent',
-          }
-        }
-      />
       <AppText variant='headlineLarge' textAlign='center'>
-        Vamos Começar!
+        Bem-vindo de volta!
       </AppText>
-      <AppText>Preencha o formulário para criar sua conta no Fit Pad!</AppText>
-      <AppInput
-        autocomplete='name'
-        label='Nome Completo'
-        onChange={(text) => handleInputChange(FORM_FIELDS.FULL_NAME, text)}
-        value={formData[FORM_FIELDS.FULL_NAME]}
-        returnKeyType='next'
-        blurOnSubmit={false}
-        onSubmitEditing={() => emailRef.current.focus()}
-      />
+      <AppText>Preencha os dados da sua conta no Fit Pad!</AppText>
       <AppInput
         label='E-mail'
         autocomplete='email'
@@ -72,16 +59,12 @@ export function SignUpScreen() {
         value={formData[FORM_FIELDS.EMAIL]}
         returnKeyType='next'
         blurOnSubmit={false}
-        inputRef={emailRef}
         onSubmitEditing={() => passwordRef.current.focus()}
       />
-      <AppInput
-        label='Senha'
-        autocomplete='new-password'
-        secureTextEntry
+      <PasswordInput
+        inputRef={passwordRef}
         onChange={(text) => handleInputChange(FORM_FIELDS.PASSWORD, text)}
         value={formData[FORM_FIELDS.PASSWORD]}
-        inputRef={passwordRef}
       />
       <AppRadio
         options={USER_TYPE_OPTIONS}
@@ -89,7 +72,13 @@ export function SignUpScreen() {
         title='Selecione seu tipo de usuário'
         value={formData[FORM_FIELDS.USER_TYPE]}
       />
-      <AppButton onPress={handleSubmit}>Cadastrar</AppButton>
+      <AppButton onPress={handleSubmit} isLoading={isLoading}>
+        Entrar
+      </AppButton>
+      <AppText>
+        Novo(a) por aqui?{' '}
+        <AppLink href='/signUp'>Clique aqui para se registrar</AppLink>
+      </AppText>
     </PageContainer>
   )
 }

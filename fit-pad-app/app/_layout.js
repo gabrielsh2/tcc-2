@@ -2,7 +2,7 @@ import { Stack } from 'expo-router/stack'
 import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
 import { SnackbarProvider } from '@providers'
 import { useFonts } from 'expo-font'
-import { FONTS, FONTS_CONFIG, THEME_COLORS } from '@constants'
+import { COLORS, FONTS, FONTS_CONFIG, THEME_COLORS } from '@constants'
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -50,7 +50,15 @@ export default function Layout() {
   return (
     <PaperProvider theme={getTheme()}>
       <SnackbarProvider>
-        <Stack />
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: COLORS.PRIMARY_LIGHT,
+            },
+            headerShadowVisible: false,
+            headerTitle: '',
+          }}
+        />
       </SnackbarProvider>
     </PaperProvider>
   )

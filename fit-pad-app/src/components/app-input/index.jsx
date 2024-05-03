@@ -10,6 +10,8 @@ export function AppInput({
   onSubmitEditing,
   secureTextEntry = false,
   returnKeyType,
+  right,
+  blurOnSubmit = true,
 }) {
   return (
     <StyledTextInput
@@ -19,10 +21,11 @@ export function AppInput({
       onChangeText={onChange}
       value={value}
       returnKeyType={returnKeyType}
-      blurOnSubmit={returnKeyType !== 'next'}
+      blurOnSubmit={blurOnSubmit}
       onSubmitEditing={onSubmitEditing}
       ref={inputRef}
       secureTextEntry={secureTextEntry}
+      right={right}
     />
   )
 }
