@@ -9,16 +9,20 @@ import {
   PasswordInput,
 } from '@components'
 import { useAuthService } from '@services'
-import { useSnackbar } from '@providers'
+import { useSession, useSnackbar } from '@providers'
 import { isRequiredFieldsFilled } from '@utils'
-import { USER_TYPE_OPTIONS } from '@constants'
+import { ROUTES, USER_DEFAULT_ROUTE, USER_TYPE_OPTIONS } from '@constants'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
+import { useNavigation, useRouter } from 'expo-router'
 
 export function SignInScreen() {
   const [formData, setFormData] = useState(INITIAL_FORM)
   const [isLoading, setIsLoading] = useState(false)
   const { login } = useAuthService()
-  const { showErrorMessage, showSuccessMessage } = useSnackbar()
+  const { showErrorMessage } = useSnackbar()
+  const { saveSession } = useSession()
+  const navigation = useNavigation()
+  const router = useRouter()
   const passwordRef = useRef()
 
   function handleSelectType(value) {
@@ -29,12 +33,28 @@ export function SignInScreen() {
     setFormData({ ...formData, [name]: value })
   }
 
+  function clearHistory() {
+    const state = navigation.getState()
+    navigation.reset({
+      ...state,
+      routes: state.routes.map((route) => ({ ...route, state: undefined })),
+    })
+  }
+
   async function handleSubmit() {
     if (isRequiredFieldsFilled(Object.keys(formData), formData)) {
       try {
         setIsLoading(true)
-        await login(formData)
+
+        const userData = await login(formData)
+        const userType = formData[FORM_FIELDS.USER_TYPE]
+
+        await saveSession({
+          ...userData,
+          userType,
+        })
         setFormData(INITIAL_FORM)
+        router.navigate(USER_DEFAULT_ROUTE[userType])
       } catch (error) {
         showErrorMessage('E-mail ou senha incorretos.')
       } finally {
@@ -77,7 +97,7 @@ export function SignInScreen() {
       </AppButton>
       <AppText>
         Novo(a) por aqui?{' '}
-        <AppLink href='/signUp'>Clique aqui para se registrar</AppLink>
+        <AppLink href={ROUTES.SIGN_UP}>Clique aqui para se registrar</AppLink>
       </AppText>
     </PageContainer>
   )

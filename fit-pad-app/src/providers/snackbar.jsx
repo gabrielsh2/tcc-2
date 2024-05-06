@@ -1,7 +1,6 @@
+import { createContext, useContext, useState } from 'react'
 import { AppSnackbar } from '@components'
 import { SNACKBAR_THEME } from '@constants'
-import { createContext, useContext, useState } from 'react'
-import { SafeAreaView } from 'react-native'
 
 const SnackbarContext = createContext()
 

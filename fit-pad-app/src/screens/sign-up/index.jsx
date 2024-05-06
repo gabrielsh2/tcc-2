@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useRouter } from 'expo-router'
 import {
   AppButton,
   AppInput,
@@ -7,16 +8,18 @@ import {
   PageContainer,
 } from '@components'
 import { useAuthService } from '@services'
-import { useSnackbar } from '@providers'
+import { useSession, useSnackbar } from '@providers'
 import { isRequiredFieldsFilled } from '@utils'
-import { USER_TYPE_OPTIONS } from '@constants'
+import { USER_DEFAULT_ROUTE, USER_TYPE_OPTIONS } from '@constants'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
-import { Stack } from 'expo-router'
 
 export function SignUpScreen() {
   const [formData, setFormData] = useState(INITIAL_FORM)
+  const [isLoading, setIsLoading] = useState(false)
   const { registerUser } = useAuthService()
   const { showErrorMessage, showSuccessMessage } = useSnackbar()
+  const { saveSession } = useSession()
+  const router = useRouter()
   const emailRef = useRef()
   const passwordRef = useRef()
 
@@ -31,11 +34,22 @@ export function SignUpScreen() {
   async function handleSubmit() {
     if (isRequiredFieldsFilled(Object.keys(formData), formData)) {
       try {
-        await registerUser(formData)
+        setIsLoading(true)
+
+        const userData = await registerUser(formData)
+        const userType = formData[FORM_FIELDS.USER_TYPE]
+
+        await saveSession({
+          ...userData,
+          userType,
+        })
         setFormData(INITIAL_FORM)
         showSuccessMessage('Conta registrada com sucesso!')
+        router.navigate(USER_DEFAULT_ROUTE[userType])
       } catch (error) {
         showErrorMessage(error?.response?.data?.message)
+      } finally {
+        setIsLoading(false)
       }
     } else {
       showErrorMessage('Preencha todos os campos para prosseguir.')
@@ -44,13 +58,6 @@ export function SignUpScreen() {
 
   return (
     <PageContainer>
-      <Stack.Screen
-        options={
-          {
-            // headerBackground: 'transparent',
-          }
-        }
-      />
       <AppText variant='headlineLarge' textAlign='center'>
         Vamos Começar!
       </AppText>
@@ -89,7 +96,9 @@ export function SignUpScreen() {
         title='Selecione seu tipo de usuário'
         value={formData[FORM_FIELDS.USER_TYPE]}
       />
-      <AppButton onPress={handleSubmit}>Cadastrar</AppButton>
+      <AppButton onPress={handleSubmit} isLoading={isLoading}>
+        Cadastrar
+      </AppButton>
     </PageContainer>
   )
 }

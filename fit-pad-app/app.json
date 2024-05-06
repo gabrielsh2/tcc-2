@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -33,7 +35,8 @@
             "node_modules/@expo-google-fonts/aguafina-script/AguafinaScript_400Regular.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "scheme": "fit-pad"
   }

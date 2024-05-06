@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Nutritionist, Patient } from '@entities';
 import { UserType } from '@enums';
 import { DuplicatedUserException } from '@exceptions';
-import { RegisterDto } from '../dtos';
+import { RegisterDto, RegisterResponseDto } from '../dtos';
 
 @Injectable()
 export class AuthRegisterService {
@@ -53,9 +53,18 @@ export class AuthRegisterService {
       throw new DuplicatedUserException();
     }
 
-    if (userType === UserType.NUTRITIONIST)
-      this.registerNutritionist(fullName, email, password);
-    else if (userType === UserType.PATIENT)
-      this.registerPatient(fullName, email, password);
+    if (userType === UserType.NUTRITIONIST) {
+      const createdUser = await this.registerNutritionist(
+        fullName,
+        email,
+        password,
+      );
+
+      return new RegisterResponseDto(createdUser.id);
+    } else if (userType === UserType.PATIENT) {
+      const createdUser = await this.registerPatient(fullName, email, password);
+
+      return new RegisterResponseDto(createdUser.id);
+    }
   }
 }

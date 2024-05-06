@@ -1,6 +1,6 @@
 import { ActivityIndicator } from 'react-native-paper'
-import { StyledPressable, StyledText, style } from './styles'
 import { COLORS } from '@constants'
+import { StyledPressable, StyledText, style } from './styles'
 
 export function AppButton({ onPress, isLoading = false, children }) {
   return (

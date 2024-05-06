@@ -1,10 +1,25 @@
-import { Stack } from 'expo-router/stack'
+import { Slot } from 'expo-router'
 import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
-import { SnackbarProvider } from '@providers'
 import { useFonts } from 'expo-font'
-import { COLORS, FONTS, FONTS_CONFIG, THEME_COLORS } from '@constants'
+import { SessionProvider, SnackbarProvider } from '@providers'
+import { FONTS, FONTS_CONFIG, THEME_COLORS } from '@constants'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+// Função para limpar o AsyncStorage
+const clearAsyncStorage = async () => {
+  try {
+    await AsyncStorage.clear()
+    console.log('AsyncStorage limpo com sucesso!')
+  } catch (error) {
+    console.error('Erro ao limpar o AsyncStorage:', error)
+  }
+}
+
+// Chame a função quando desejar limpar o AsyncStorage
 
 export default function Layout() {
+  // clearAsyncStorage()
   const [loaded] = useFonts({
     [FONTS.CLASH_GROTESTK_REGULAR]: require('../assets/fonts/ClashGrotesk-Regular.ttf'),
     [FONTS.CLASH_GROTESTK_SEMIBOLD]: require('../assets/fonts/ClashGrotesk-Semibold.ttf'),
@@ -50,15 +65,9 @@ export default function Layout() {
   return (
     <PaperProvider theme={getTheme()}>
       <SnackbarProvider>
-        <Stack
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: COLORS.PRIMARY_LIGHT,
-            },
-            headerShadowVisible: false,
-            headerTitle: '',
-          }}
-        />
+        <SessionProvider>
+          <Slot />
+        </SessionProvider>
       </SnackbarProvider>
     </PaperProvider>
   )
