@@ -5,6 +5,7 @@ import {
   AppInput,
   AppRadio,
   AppText,
+  AppTitle,
   PageContainer,
 } from '@components'
 import { useAuthService } from '@services'
@@ -36,7 +37,7 @@ export function SignUpScreen() {
       try {
         setIsLoading(true)
 
-        const userData = await registerUser(formData)
+        const { data: userData } = await registerUser(formData)
         const userType = formData[FORM_FIELDS.USER_TYPE]
 
         await saveSession({
@@ -45,7 +46,10 @@ export function SignUpScreen() {
         })
         setFormData(INITIAL_FORM)
         showSuccessMessage('Conta registrada com sucesso!')
-        router.navigate(USER_DEFAULT_ROUTE[userType])
+        router.navigate({
+          pathname: USER_DEFAULT_ROUTE[userType],
+          params: { id: userData.userId },
+        })
       } catch (error) {
         showErrorMessage(error?.response?.data?.message)
       } finally {
@@ -58,9 +62,7 @@ export function SignUpScreen() {
 
   return (
     <PageContainer>
-      <AppText variant='headlineLarge' textAlign='center'>
-        Vamos Começar!
-      </AppText>
+      <AppTitle>Vamos Começar!</AppTitle>
       <AppText>Preencha o formulário para criar sua conta no Fit Pad!</AppText>
       <AppInput
         autocomplete='name'

@@ -1,16 +1,45 @@
-import { AppText, PageContainer } from '@components'
+import { Stack, router } from 'expo-router'
+import {
+  AppButton,
+  AppText,
+  AppTitle,
+  ListButton,
+  PageContainer,
+} from '@components'
 import { ROUTES } from '@constants'
-import { Link } from 'expo-router'
+import { useNutritionist } from '@providers'
 
-export function NutritionistDashboard() {
+export function NutritionistDashboardScreen() {
+  const { nutritionistPatients } = useNutritionist()
+
+  function handlePatientClick(id) {
+    router.push({
+      pathname: ROUTES.AGENDA,
+      params: {
+        id,
+      },
+    })
+  }
+
+  function renderPatients() {
+    return nutritionistPatients.map(({ id, fullName }, index) => (
+      <ListButton key={id} index={index} onPress={() => handlePatientClick(id)}>
+        {fullName}
+      </ListButton>
+    ))
+  }
+
   return (
-    <PageContainer>
-      <AppText variant='headlineLarge' textAlign='center'>
-        Pacientes
-      </AppText>
-      <AppText>Selecione um de seus pacientes para ver seus dados!</AppText>
-      <Link href={ROUTES.AGENDA}>Agenda</Link>
-      <Link href={ROUTES.SIGN_IN}>Logout</Link>
-    </PageContainer>
+    <>
+      {/* <Stack.Screen name='(nutritionist)/nutritionistDashboard' /> */}
+      <PageContainer>
+        <AppTitle>Pacientes</AppTitle>
+        <AppText>Selecione um de seus pacientes para ver seus dados!</AppText>
+        {renderPatients()}
+        <AppButton onPress={() => router.navigate(ROUTES.REGISTER_PATIENT)}>
+          Registrar novo paciente
+        </AppButton>
+      </PageContainer>
+    </>
   )
 }

@@ -5,13 +5,19 @@ import {
   AppLink,
   AppRadio,
   AppText,
+  AppTitle,
   PageContainer,
   PasswordInput,
 } from '@components'
 import { useAuthService } from '@services'
 import { useSession, useSnackbar } from '@providers'
 import { isRequiredFieldsFilled } from '@utils'
-import { ROUTES, USER_DEFAULT_ROUTE, USER_TYPE_OPTIONS } from '@constants'
+import {
+  ROUTES,
+  USER_DEFAULT_ROUTE,
+  USER_TYPE,
+  USER_TYPE_OPTIONS,
+} from '@constants'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
 import { useNavigation, useRouter } from 'expo-router'
 
@@ -46,7 +52,7 @@ export function SignInScreen() {
       try {
         setIsLoading(true)
 
-        const userData = await login(formData)
+        const { data: userData } = await login(formData)
         const userType = formData[FORM_FIELDS.USER_TYPE]
 
         await saveSession({
@@ -54,7 +60,10 @@ export function SignInScreen() {
           userType,
         })
         setFormData(INITIAL_FORM)
-        router.navigate(USER_DEFAULT_ROUTE[userType])
+        router.navigate({
+          pathname: USER_DEFAULT_ROUTE[userType],
+          params: { id: userData.userId },
+        })
       } catch (error) {
         showErrorMessage('E-mail ou senha incorretos.')
       } finally {
@@ -67,9 +76,7 @@ export function SignInScreen() {
 
   return (
     <PageContainer>
-      <AppText variant='headlineLarge' textAlign='center'>
-        Bem-vindo de volta!
-      </AppText>
+      <AppTitle>Bem-vindo de volta!</AppTitle>
       <AppText>Preencha os dados da sua conta no Fit Pad!</AppText>
       <AppInput
         label='E-mail'

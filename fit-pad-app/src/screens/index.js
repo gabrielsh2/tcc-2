@@ -1,4 +1,7 @@
 export { SignUpScreen } from './sign-up'
 export { SignInScreen } from './sign-in'
 export { AgendaScreen } from './agenda'
-export { NutritionistDashboard } from './nutritionist-dashboard'
+export { NutritionistDashboardScreen } from './nutritionist-dashboard'
+export { RegisterPatientScreen } from './register-patient'
+export { AnthropometryScreen } from './anthropometry'
+export { DietScreen } from './diet'

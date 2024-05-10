@@ -6,15 +6,15 @@ import { PatientDto } from './dtos';
 export class PatientsController {
   constructor(private readonly patientsService: PatientsService) {}
 
-  @Get()
-  findAll(): Promise<PatientDto[]> {
-    return this.patientsService.findAll();
-  }
-
-  @Get('/by-nutritionist/:nutritionistId')
+  @Get('/nutritionist/:nutritionistId')
   async findAllByNutritionistId(
     @Param('nutritionistId') nutritionistId: number,
   ): Promise<PatientDto[]> {
     return this.patientsService.findAllByNutritionistId(nutritionistId);
+  }
+
+  @Get('/available')
+  async findAllAvailable(): Promise<PatientDto[]> {
+    return this.patientsService.findAllAvailable();
   }
 }

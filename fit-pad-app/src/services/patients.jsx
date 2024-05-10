@@ -1,11 +1,16 @@
 import { api } from './api'
 
 export function usePatientService() {
-  function findAllPatients() {
-    return api.get('/patients')
+  function findAvailablePatients() {
+    return api.get('/patients/available')
+  }
+
+  function findPatientsByNutritionist(nutritionistId) {
+    return api.get(`/patients/nutritionist/${nutritionistId}`)
   }
 
   return {
-    findAllPatients,
+    findAvailablePatients,
+    findPatientsByNutritionist,
   }
 }

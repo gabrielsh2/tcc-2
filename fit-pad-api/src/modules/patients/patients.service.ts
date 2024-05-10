@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IsNull } from 'typeorm';
 import { Patient } from '@entities';
 import { PatientRepository } from '@repositories';
 
@@ -10,11 +11,15 @@ export class PatientsService {
     private readonly patientsRepository: PatientRepository,
   ) {}
 
-  async findAll(): Promise<Patient[]> {
-    return this.patientsRepository.find();
-  }
-
   async findAllByNutritionistId(nutritionistId: number): Promise<Patient[]> {
     return this.patientsRepository.findByNutritionist(nutritionistId);
+  }
+
+  async findAllAvailable(): Promise<Patient[]> {
+    return this.patientsRepository.find({
+      where: {
+        nutritionist: IsNull(),
+      },
+    });
   }
 }

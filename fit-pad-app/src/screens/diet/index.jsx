@@ -3,7 +3,7 @@ import { Link, useLocalSearchParams } from 'expo-router'
 import { AppTitle, PageContainer } from '@components'
 import { ROUTES } from '@constants'
 
-export function AgendaScreen() {
+export function DietScreen() {
   const { id } = useLocalSearchParams()
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function AgendaScreen() {
 
   return (
     <PageContainer>
-      <AppTitle>Agenda</AppTitle>
+      <AppTitle>Dietas</AppTitle>
       <Link href={ROUTES.SIGN_IN}>Logout</Link>
     </PageContainer>
   )

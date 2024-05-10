@@ -3,8 +3,11 @@ import { USER_TYPE } from './userType'
 export const ROUTES = {
   SIGN_IN: 'signIn',
   SIGN_UP: 'signUp',
-  AGENDA: 'agenda',
+  AGENDA: 'agenda/[id]',
+  ANTHROPOMETRY: 'anthropometry/[id]',
+  DIET: 'diet/[id]',
   NUTRITIONIST_DASHBOARD: 'nutritionistDashboard',
+  REGISTER_PATIENT: 'registerPatient',
 }
 
 export const USER_DEFAULT_ROUTE = {
