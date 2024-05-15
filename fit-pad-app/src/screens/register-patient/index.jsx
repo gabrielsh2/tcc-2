@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AppText, AppTitle, ListButton, PageContainer } from '@components'
+import { AppText, AppTitle, ListItem, PageContainer } from '@components'
 import { useNutritionistService, usePatientService } from '@services'
 import { useNutritionist, useSession, useSnackbar } from '@providers'
 import { DialogConfirmPatient } from './components'
@@ -53,13 +53,13 @@ export function RegisterPatientScreen() {
 
   function renderPatients() {
     return availablePatients.map(({ id, fullName }, index) => (
-      <ListButton
+      <ListItem
         key={id}
         index={index}
         onPress={() => handlePatientClick(id, fullName)}
       >
         {fullName}
-      </ListButton>
+      </ListItem>
     ))
   }
 

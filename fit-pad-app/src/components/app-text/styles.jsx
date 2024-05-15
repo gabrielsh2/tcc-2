@@ -3,5 +3,6 @@ import styled from 'styled-components/native'
 
 export const StyledText = styled(Text)`
   text-align: ${({ textAlign }) => textAlign};
-  width: 100%;
+  color: ${({ color }) => color};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'unset')};
 `

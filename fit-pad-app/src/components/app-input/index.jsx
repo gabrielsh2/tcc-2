@@ -12,9 +12,16 @@ export function AppInput({
   returnKeyType,
   right,
   blurOnSubmit = true,
+  multiline = false,
+  style,
+  placeholder,
+  contentStyle,
+  onContentSizeChange,
+  render,
 }) {
   return (
     <StyledTextInput
+      onContentSizeChange={onContentSizeChange}
       autocomplete={autocomplete}
       inputMode={inputMode}
       label={label}
@@ -26,6 +33,11 @@ export function AppInput({
       ref={inputRef}
       secureTextEntry={secureTextEntry}
       right={right}
+      multiline={multiline}
+      style={style}
+      placeholder={placeholder}
+      contentStyle={contentStyle}
+      render={render}
     />
   )
 }

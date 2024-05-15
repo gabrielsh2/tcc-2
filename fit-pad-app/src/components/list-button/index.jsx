@@ -1,16 +1,22 @@
+import { ActivityIndicator } from 'react-native-paper'
 import { COLORS } from '@constants'
-import { StyledPressable, StyledText, style } from './styles'
+import { StyledPressable, customStyle } from './styles'
 
-export function ListButton({ onPress = () => {}, index, children }) {
+export function ListButton({
+  onPress = () => {},
+  backgroundColor = COLORS.PRIMARY_LIGHT,
+  children,
+  style,
+  isLoading,
+}) {
   return (
     <StyledPressable
-      style={style.button}
-      backgroundColor={
-        index % 2 ? COLORS.PRIMARY_LIGHT : COLORS.SECONDARY_YELLOW
-      }
       onPress={onPress}
+      style={[style, customStyle.button]}
+      backgroundColor={backgroundColor}
+      disabled={isLoading}
     >
-      <StyledText variant='bodyLarge'>{children}</StyledText>
+      {isLoading ? <ActivityIndicator animating={isLoading} /> : children}
     </StyledPressable>
   )
 }

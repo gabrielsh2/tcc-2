@@ -8,6 +8,7 @@ export const ROUTES = {
   DIET: 'diet/[id]',
   NUTRITIONIST_DASHBOARD: 'nutritionistDashboard',
   REGISTER_PATIENT: 'registerPatient',
+  DAILY_NOTE: 'dailyNote',
 }
 
 export const USER_DEFAULT_ROUTE = {

@@ -57,11 +57,12 @@ export class AgendaController {
     return this.agendaService.findDailyTasks(agendaId);
   }
 
-  @Get('/:year/:month')
+  @Get('/:year/:month/patient/:patientId')
   async findAgendasByMonth(
     @Param('year') year: number,
     @Param('month') month: number,
+    @Param('patientId') patientId: number,
   ): Promise<Agenda[]> {
-    return this.agendaService.findAgendasByMonth(year, month);
+    return this.agendaService.findAgendasByMonth(patientId, year, month);
   }
 }

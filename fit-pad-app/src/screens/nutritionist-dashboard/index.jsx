@@ -3,7 +3,7 @@ import {
   AppButton,
   AppText,
   AppTitle,
-  ListButton,
+  ListItem,
   PageContainer,
 } from '@components'
 import { ROUTES } from '@constants'
@@ -23,9 +23,9 @@ export function NutritionistDashboardScreen() {
 
   function renderPatients() {
     return nutritionistPatients.map(({ id, fullName }, index) => (
-      <ListButton key={id} index={index} onPress={() => handlePatientClick(id)}>
+      <ListItem key={id} index={index} onPress={() => handlePatientClick(id)}>
         {fullName}
-      </ListButton>
+      </ListItem>
     ))
   }
 

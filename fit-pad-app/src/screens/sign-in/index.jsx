@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router'
 import { useRef, useState } from 'react'
 import {
   AppButton,
@@ -12,14 +13,8 @@ import {
 import { useAuthService } from '@services'
 import { useSession, useSnackbar } from '@providers'
 import { isRequiredFieldsFilled } from '@utils'
-import {
-  ROUTES,
-  USER_DEFAULT_ROUTE,
-  USER_TYPE,
-  USER_TYPE_OPTIONS,
-} from '@constants'
+import { ROUTES, USER_DEFAULT_ROUTE, USER_TYPE_OPTIONS } from '@constants'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
-import { useNavigation, useRouter } from 'expo-router'
 
 export function SignInScreen() {
   const [formData, setFormData] = useState(INITIAL_FORM)
@@ -27,7 +22,6 @@ export function SignInScreen() {
   const { login } = useAuthService()
   const { showErrorMessage } = useSnackbar()
   const { saveSession } = useSession()
-  const navigation = useNavigation()
   const router = useRouter()
   const passwordRef = useRef()
 
@@ -37,14 +31,6 @@ export function SignInScreen() {
 
   function handleInputChange(name, value) {
     setFormData({ ...formData, [name]: value })
-  }
-
-  function clearHistory() {
-    const state = navigation.getState()
-    navigation.reset({
-      ...state,
-      routes: state.routes.map((route) => ({ ...route, state: undefined })),
-    })
   }
 
   async function handleSubmit() {

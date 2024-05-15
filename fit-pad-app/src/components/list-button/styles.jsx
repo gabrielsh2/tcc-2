@@ -1,9 +1,7 @@
-import { COLORS } from '@constants'
-import { Pressable, StyleSheet } from 'react-native'
-import { Text } from 'react-native-paper'
 import styled from 'styled-components/native'
+import { Pressable, StyleSheet } from 'react-native'
 
-export const style = StyleSheet.create({
+export const customStyle = StyleSheet.create({
   button: {
     elevation: 6,
   },
@@ -17,5 +15,3 @@ export const StyledPressable = styled(Pressable)`
   border-radius: 5px;
   padding: 0 20px;
 `
-
-export const StyledText = styled(Text)``

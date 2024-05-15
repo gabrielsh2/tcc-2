@@ -1,3 +1,6 @@
 export { useAuthService } from './auth'
 export { usePatientService } from './patients'
 export { useNutritionistService } from './nutritionist'
+export { useAgendaService } from './agenda'
+export { useTasksService } from './tasks'
+export { useDailyNoteService } from './dailyNote'

@@ -1,19 +1,38 @@
-import { useEffect } from 'react'
-import { Link, useLocalSearchParams } from 'expo-router'
 import { AppTitle, PageContainer } from '@components'
-import { ROUTES } from '@constants'
+import {
+  AgendaActions,
+  AppCalendar,
+  DailyMood,
+  DailyNotesList,
+  DailyTasks,
+  DayBar,
+} from './components'
+import { Portal } from 'react-native-paper'
+import { useEffect } from 'react'
+import { useDate } from '@providers'
 
 export function AgendaScreen() {
-  const { id } = useLocalSearchParams()
+  const { refreshAgendas } = useDate()
 
   useEffect(() => {
-    console.log(id)
-  }, [id])
+    async function fetchData() {
+      await refreshAgendas()
+    }
+
+    fetchData()
+  }, [])
 
   return (
-    <PageContainer>
-      <AppTitle>Agenda</AppTitle>
-      <Link href={ROUTES.SIGN_IN}>Logout</Link>
-    </PageContainer>
+    <Portal.Host>
+      <PageContainer>
+        <AppTitle>Agenda</AppTitle>
+        <AppCalendar />
+        <DayBar />
+        <DailyMood />
+        <DailyTasks />
+        <DailyNotesList />
+        <AgendaActions />
+      </PageContainer>
+    </Portal.Host>
   )
 }

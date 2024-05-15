@@ -134,10 +134,29 @@ export class AgendaService {
         throw new AgendaNotFoundException();
       });
 
-    return this.dailyTaskRepository.findBy({ agenda });
+    return this.dailyTaskRepository.find({
+      where: {
+        agenda,
+      },
+      relations: {
+        task: true,
+      },
+    });
   }
 
-  async findAgendasByMonth(year: number, month: number): Promise<Agenda[]> {
+  async findAgendasByMonth(
+    patientId: number,
+    year: number,
+    month: number,
+  ): Promise<Agenda[]> {
+    const patient = await this.patientRepository
+      .findOneByOrFail({
+        id: patientId,
+      })
+      .catch(() => {
+        throw new PatientNotFoundException();
+      });
+
     const monthDate = new Date(year, month - 1);
     const minDate = startOfMonth(monthDate);
     const maxDate = endOfMonth(monthDate);
@@ -145,6 +164,7 @@ export class AgendaService {
     return this.agendaRepository.find({
       where: {
         registerDate: Between(minDate, maxDate),
+        patient,
       },
     });
   }
