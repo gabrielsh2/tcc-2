@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { router, useLocalSearchParams } from 'expo-router'
 import {
   AppButton,
   AppInput,
@@ -6,10 +7,10 @@ import {
   AppTitle,
   PageContainer,
 } from '@components'
-import { DateProvider, useDate, useSnackbar } from '@providers'
+import { AgendaProvider, useAgenda, useSession, useSnackbar } from '@providers'
 import { useDailyNoteService } from '@services'
 import { FORM_FIELDS, INITIAL_FORM } from './constants'
-import { router, useLocalSearchParams } from 'expo-router'
+import { USER_TYPE } from '@constants'
 
 export function DailyNoteScreen() {
   const [formData, setFormData] = useState(INITIAL_FORM)
@@ -21,10 +22,13 @@ export function DailyNoteScreen() {
     refreshAgendas,
     fetchDailyNotes,
     currentDailyNotes,
-  } = useDate()
+  } = useAgenda()
   const { createDailyNote, updateDailyNote } = useDailyNoteService()
-  const { showErrorMessage } = useSnackbar()
+  const { showErrorMessage, showSuccessMessage } = useSnackbar()
   const { dailyNoteId } = useLocalSearchParams()
+  const {
+    userData: { userType },
+  } = useSession()
 
   useEffect(() => {
     if (dailyNoteId) {
@@ -44,6 +48,7 @@ export function DailyNoteScreen() {
     try {
       await updateDailyNote(dailyNoteId, formData)
       setFormData(INITIAL_FORM)
+      showSuccessMessage('Anotação editada com sucesso.')
       router.back()
       await fetchDailyNotes()
     } catch {
@@ -55,6 +60,7 @@ export function DailyNoteScreen() {
     try {
       await createDailyNote(agendaId, formData)
       setFormData(INITIAL_FORM)
+      showSuccessMessage('Anotação criada com sucesso.')
       router.back()
     } catch {
       showErrorMessage('Erro ao criar anotação diária.')
@@ -81,7 +87,7 @@ export function DailyNoteScreen() {
   }
 
   return (
-    <DateProvider>
+    <AgendaProvider>
       <PageContainer>
         <AppTitle>Anotação Diária</AppTitle>
         <AppInput
@@ -91,16 +97,20 @@ export function DailyNoteScreen() {
           returnKeyType='next'
           blurOnSubmit={false}
           onSubmitEditing={() => descriptionRef.current.focus()}
+          readOnly={userType === USER_TYPE.NUTRITIONIST}
         />
         <AppTextArea
           onChange={(text) => handleInputChange(FORM_FIELDS.DESCRIPTION, text)}
           inputRef={descriptionRef}
           value={formData[FORM_FIELDS.DESCRIPTION]}
+          readOnly={userType === USER_TYPE.NUTRITIONIST}
         />
-        <AppButton isLoading={isLoading} onPress={handleClickSubmit}>
-          Salvar
-        </AppButton>
+        {userType === USER_TYPE.PATIENT && (
+          <AppButton isLoading={isLoading} onPress={handleClickSubmit}>
+            Salvar
+          </AppButton>
+        )}
       </PageContainer>
-    </DateProvider>
+    </AgendaProvider>
   )
 }

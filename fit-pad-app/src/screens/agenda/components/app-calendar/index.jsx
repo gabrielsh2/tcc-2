@@ -1,7 +1,7 @@
 import { Dimensions } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { COLORS } from '@constants'
-import { useDate } from '@providers'
+import { useAgenda } from '@providers'
 import {
   CALENDAR_LOCALE,
   CALENDAR_LOCALE_CONFIG,
@@ -14,15 +14,11 @@ LocaleConfig.locales[CALENDAR_LOCALE] = CALENDAR_LOCALE_CONFIG
 LocaleConfig.defaultLocale = CALENDAR_LOCALE
 
 export function AppCalendar() {
-  const { selectedDate, setSelectedDate, setSelectedMonth, agendas } = useDate()
+  const { selectedDate, setSelectedDate, agendas } = useAgenda()
   const screenWidth = Dimensions.get('window').width
 
-  function handleDayPress(day) {
-    setSelectedDate(day.dateString)
-  }
-
-  function handleMonthChange({ month }) {
-    setSelectedMonth(month)
+  function handleDayPress({ dateString, month, year }) {
+    setSelectedDate(dateString)
   }
 
   function mapAgendasMarks() {
@@ -42,7 +38,6 @@ export function AppCalendar() {
   return (
     <Calendar
       onDayPress={handleDayPress}
-      onMonthChange={handleMonthChange}
       markedDates={{ ...mapAgendasMarks() }}
       style={{ width: screenWidth * 0.9 }}
       date={selectedDate}

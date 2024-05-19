@@ -1,6 +1,6 @@
 import { IconButton } from 'react-native-paper'
 import { AppText } from '@components'
-import { useDate } from '@providers'
+import { useAgenda } from '@providers'
 import {
   formatDateToDisplay,
   getTomorrowString,
@@ -10,7 +10,7 @@ import { COLORS } from '@constants'
 import { StyledView } from './styles'
 
 export function DayBar() {
-  const { selectedDate, setSelectedDate } = useDate()
+  const { selectedDate, setSelectedDate } = useAgenda()
 
   return (
     <StyledView>

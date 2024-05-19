@@ -144,11 +144,7 @@ export class AgendaService {
     });
   }
 
-  async findAgendasByMonth(
-    patientId: number,
-    year: number,
-    month: number,
-  ): Promise<Agenda[]> {
+  async findAgendasByMonth(patientId: number): Promise<Agenda[]> {
     const patient = await this.patientRepository
       .findOneByOrFail({
         id: patientId,
@@ -157,13 +153,8 @@ export class AgendaService {
         throw new PatientNotFoundException();
       });
 
-    const monthDate = new Date(year, month - 1);
-    const minDate = startOfMonth(monthDate);
-    const maxDate = endOfMonth(monthDate);
-
     return this.agendaRepository.find({
       where: {
-        registerDate: Between(minDate, maxDate),
         patient,
       },
     });

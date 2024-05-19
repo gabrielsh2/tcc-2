@@ -1,8 +1,8 @@
 import { api } from './api'
 
 export function useAgendaService() {
-  function findAgendas(year, month, id, data) {
-    return api.get(`/agenda/${year}/${month}/patient/${id}`, {
+  function findAgendas(id, data) {
+    return api.get(`/agenda/patient/${id}`, {
       data,
     })
   }

@@ -17,10 +17,20 @@ export function useTasksService() {
     return api.put(`/agenda/daily-task/${dailyTaskId}`, data)
   }
 
+  function createTask(patientId, data) {
+    return api.post(`/task/patient/${patientId}`, data)
+  }
+
+  function updateTask(taskId, data) {
+    return api.put(`/task/${taskId}`, data)
+  }
+
   return {
     findPatientTasks,
     findAgendaDailyTasks,
     createDailyTask,
     updateDailyTask,
+    createTask,
+    updateTask,
   }
 }

@@ -18,9 +18,13 @@ export function AppInput({
   contentStyle,
   onContentSizeChange,
   render,
+  width = '100%',
+  customStyle,
+  readOnly = false,
 }) {
   return (
     <StyledTextInput
+      readOnly={readOnly}
       onContentSizeChange={onContentSizeChange}
       autocomplete={autocomplete}
       inputMode={inputMode}
@@ -34,10 +38,11 @@ export function AppInput({
       secureTextEntry={secureTextEntry}
       right={right}
       multiline={multiline}
-      style={style}
+      style={[style, customStyle]}
       placeholder={placeholder}
       contentStyle={contentStyle}
       render={render}
+      width={width}
     />
   )
 }

@@ -3,25 +3,25 @@ import { COLORS, ROUTES } from '@constants'
 import { useAgenda } from '@providers'
 import { router, useLocalSearchParams } from 'expo-router'
 
-export function DailyNotesList() {
-  const { currentDailyNotes } = useAgenda()
+export function MealRecords() {
+  const { currentMealRecords } = useAgenda()
   const { id } = useLocalSearchParams()
 
-  return currentDailyNotes.map(({ title, id: dailyNoteId }, index) => (
+  return currentMealRecords.map(({ mealType, id: mealRecordId }, index) => (
     <ListButton
       key={index}
-      backgroundColor={COLORS.SECONDARY_BLUE}
+      backgroundColor={COLORS.PRIMARY_LIGHT}
       onPress={() =>
         router.navigate({
-          pathname: ROUTES.DAILY_NOTE,
+          pathname: ROUTES.MEAL_RECORD,
           params: {
             id,
-            dailyNoteId,
+            mealRecordId,
           },
         })
       }
     >
-      <AppText>{title}</AppText>
+      <AppText>{mealType}</AppText>
     </ListButton>
   ))
 }

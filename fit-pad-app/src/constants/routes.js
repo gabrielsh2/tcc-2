@@ -9,6 +9,9 @@ export const ROUTES = {
   NUTRITIONIST_DASHBOARD: 'nutritionistDashboard',
   REGISTER_PATIENT: 'registerPatient',
   DAILY_NOTE: 'dailyNote',
+  MEAL_RECORD: 'mealRecord',
+  TASKS: 'tasks',
+  CREATE_TASK: 'createTask',
 }
 
 export const USER_DEFAULT_ROUTE = {

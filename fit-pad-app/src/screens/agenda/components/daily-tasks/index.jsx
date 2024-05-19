@@ -2,23 +2,17 @@ import { useEffect, useState } from 'react'
 import { Icon, IconButton } from 'react-native-paper'
 import { useLocalSearchParams } from 'expo-router'
 import { AppText, ListButton, ModalBase } from '@components'
-import { COLORS } from '@constants'
-import { useDate, useSnackbar } from '@providers'
+import { COLORS, USER_TYPE } from '@constants'
+import { useAgenda, useSession, useSnackbar, useTask } from '@providers'
 import { useTasksService } from '@services'
 import {
   DAILY_TASK_STATUS,
   DAILY_TASK_STATUS_ICON,
   DAILY_TASK_STATUS_ICON_COLOR,
 } from '../../constants'
-import {
-  ButtonsContainer,
-  StatusContainer,
-  StyledListButton,
-  StyledView,
-} from './styles'
+import { ButtonsContainer, StatusContainer, StyledView } from './styles'
 
 export function DailyTasks() {
-  const [tasks, setTasks] = useState([])
   const [dailyTasksRegisters, setDailyTasksRegisters] = useState([])
   const [loadingTask, setLoadingTask] = useState({
     status: false,
@@ -29,25 +23,16 @@ export function DailyTasks() {
     content: '',
   })
   const { id } = useLocalSearchParams()
-  const {
-    findPatientTasks,
-    findAgendaDailyTasks,
-    createDailyTask,
-    updateDailyTask,
-  } = useTasksService()
+  const { findAgendaDailyTasks, createDailyTask, updateDailyTask } =
+    useTasksService()
   const { showErrorMessage } = useSnackbar()
-  const { currentAgenda, handleAgendaCreation, refreshAgendas } = useDate()
+  const { currentAgenda, handleAgendaCreation, refreshAgendas } = useAgenda()
+  const {
+    userData: { userType },
+  } = useSession()
+  const { tasks, fetchTasks } = useTask()
 
   useEffect(() => {
-    async function fetchTasks() {
-      try {
-        const { data } = await findPatientTasks(id)
-        setTasks(data)
-      } catch {
-        showErrorMessage('Não foi possível buscar as tarefas do dia.')
-      }
-    }
-
     fetchTasks()
   }, [])
 
@@ -170,6 +155,7 @@ export function DailyTasks() {
     return tasks.map(({ title, description, id }, index) => (
       <ListButton
         key={index}
+        disabled={userType === USER_TYPE.NUTRITIONIST}
         backgroundColor={COLORS.SECONDARY_YELLOW}
         onPress={() => handleDailyTaskClick(id)}
         isLoading={loadingTask.status && loadingTask.id === id}

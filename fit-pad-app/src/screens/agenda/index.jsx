@@ -6,13 +6,15 @@ import {
   DailyNotesList,
   DailyTasks,
   DayBar,
+  MealRecords,
 } from './components'
 import { Portal } from 'react-native-paper'
 import { useEffect } from 'react'
-import { useDate } from '@providers'
+import { useAgenda } from '@providers'
+import { View } from 'react-native'
 
 export function AgendaScreen() {
-  const { refreshAgendas } = useDate()
+  const { refreshAgendas } = useAgenda()
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +34,8 @@ export function AgendaScreen() {
         <DailyTasks />
         <DailyNotesList />
         <AgendaActions />
+        <MealRecords />
+        <View style={{ height: 50 }} />
       </PageContainer>
     </Portal.Host>
   )

@@ -8,6 +8,8 @@ export const COLORS = {
   WHITE: '#FFFFFF',
   DISABLED_COLOR: '#d9e1e8',
   TEXT_COLOR: '#1d1b1e',
+  UNDERLINE: '#4a454e',
+  LIGHT_GRAY: '#dadada',
 }
 
 export const THEME_COLORS = {
@@ -17,4 +19,6 @@ export const THEME_COLORS = {
   surfaceVariant: COLORS.WHITE,
   background: COLORS.WHITE,
   onSurface: COLORS.TEXT_COLOR,
+  onSurfaceVariant: COLORS.UNDERLINE,
+  secondaryContainer: COLORS.SECONDARY_YELLOW,
 }

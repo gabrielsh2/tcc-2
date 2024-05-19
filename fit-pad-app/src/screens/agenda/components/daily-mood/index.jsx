@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { pt } from 'rn-emoji-keyboard'
-import { useLocalSearchParams } from 'expo-router'
 import { AppText } from '@components'
-import { useDate, useSnackbar } from '@providers'
+import { useAgenda, useSession, useSnackbar } from '@providers'
 import { useAgendaService } from '@services'
 import { EmojiContainer, StyledPressable, StyledView, style } from './styles'
+import { USER_TYPE } from '@constants'
 
 export function DailyMood() {
   const [isOpen, setIsOpen] = useState(false)
   const [dailyMood, setDailyMood] = useState('')
-  const { currentAgenda, handleAgendaCreation, refreshAgendas } = useDate()
+  const { currentAgenda, handleAgendaCreation, refreshAgendas } = useAgenda()
   const { registerMoodEmoji } = useAgendaService()
   const { showErrorMessage } = useSnackbar()
+  const {
+    userData: { userType },
+  } = useSession()
 
   useEffect(() => {
     const currentMoodEmoji = currentAgenda?.moodEmoji
@@ -40,7 +43,10 @@ export function DailyMood() {
 
   return (
     <>
-      <StyledPressable onPress={() => setIsOpen(true)}>
+      <StyledPressable
+        disabled={userType === USER_TYPE.NUTRITIONIST}
+        onPress={() => setIsOpen(true)}
+      >
         <StyledView>
           <AppText fullWidth={false}>Humor do dia</AppText>
           <EmojiContainer style={style.emojiContainer}>

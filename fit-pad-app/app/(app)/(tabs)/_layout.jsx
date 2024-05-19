@@ -1,6 +1,6 @@
 import { COLORS, ROUTES } from '@constants'
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
-import { DateProvider } from '@providers'
+import { AgendaProvider } from '@providers'
 import { Tabs, useLocalSearchParams } from 'expo-router'
 
 export default function TabsLayout() {

@@ -7,14 +7,15 @@ export function ListButton({
   backgroundColor = COLORS.PRIMARY_LIGHT,
   children,
   style,
-  isLoading,
+  isLoading = false,
+  disabled = false,
 }) {
   return (
     <StyledPressable
       onPress={onPress}
       style={[style, customStyle.button]}
       backgroundColor={backgroundColor}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
     >
       {isLoading ? <ActivityIndicator animating={isLoading} /> : children}
     </StyledPressable>

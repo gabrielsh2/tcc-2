@@ -1,24 +1,28 @@
 import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useAgendaService, useDailyNoteService } from '@services'
-import { getCurrentMonth, getCurrentYear, getTodayString } from '@utils'
+import {
+  useAgendaService,
+  useDailyNoteService,
+  useMealRecordService,
+} from '@services'
+import { getTodayString } from '@utils'
 import { useSnackbar } from './snackbar'
 
 const DateContext = createContext()
 
-export function useDate() {
+export function useAgenda() {
   return useContext(DateContext)
 }
 
-export function DateProvider({ children }) {
+export function AgendaProvider({ children }) {
   const [selectedDate, setSelectedDate] = useState(getTodayString())
-  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth())
-  const [selectedYear, setSelectedYear] = useState(getCurrentYear())
   const [agendas, setAgendas] = useState([])
   const [currentAgenda, setCurrentAgenda] = useState(null)
   const [currentDailyNotes, setCurrentDailyNotes] = useState([])
+  const [currentMealRecords, setCurrentMealRecords] = useState([])
   const { findAgendas, createAgenda } = useAgendaService()
   const { findAgendaDailyNotes } = useDailyNoteService()
+  const { findAgendaMealRecord } = useMealRecordService()
   const { showErrorMessage } = useSnackbar()
   const { id } = useGlobalSearchParams()
 
@@ -32,14 +36,16 @@ export function DateProvider({ children }) {
   useEffect(() => {
     if (currentAgenda) {
       fetchDailyNotes()
+      fetchMealRecords()
     } else {
       setCurrentDailyNotes([])
+      setCurrentMealRecords([])
     }
   }, [currentAgenda])
 
   async function fetchAgendas() {
     try {
-      const { data } = await findAgendas(selectedYear, selectedMonth, id, {
+      const { data } = await findAgendas(id, {
         date: selectedDate,
       })
       setAgendas(data)
@@ -63,8 +69,16 @@ export function DateProvider({ children }) {
       const { data } = await findAgendaDailyNotes(currentAgenda?.id)
       setCurrentDailyNotes(data)
     } catch (error) {
-      console.error(error)
       showErrorMessage('Erro ao buscar anotações do dia.')
+    }
+  }
+
+  async function fetchMealRecords() {
+    try {
+      const { data } = await findAgendaMealRecord(currentAgenda?.id)
+      setCurrentMealRecords(data)
+    } catch (error) {
+      showErrorMessage('Erro ao buscar refeições do dia.')
     }
   }
 
@@ -73,16 +87,14 @@ export function DateProvider({ children }) {
       value={{
         selectedDate,
         setSelectedDate,
-        selectedMonth,
-        setSelectedMonth,
-        selectedYear,
-        setSelectedYear,
         agendas,
         currentAgenda,
         handleAgendaCreation,
         refreshAgendas: fetchAgendas,
         fetchDailyNotes,
         currentDailyNotes,
+        fetchMealRecords,
+        currentMealRecords,
       }}
     >
       {children}
