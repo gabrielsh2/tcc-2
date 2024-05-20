@@ -64,6 +64,13 @@ export class AnthropometryService {
         throw new PatientNotFoundException();
       });
 
-    return this.anthropometryRepository.find({ where: { patient } }) || [];
+    return (
+      this.anthropometryRepository.find({
+        where: { patient },
+        order: {
+          registerDate: 'DESC',
+        },
+      }) || []
+    );
   }
 }

@@ -10,4 +10,7 @@ export const FONTS_CONFIG = {
   HEADLINE_LARGE: {
     fontFamily: FONTS.CLASH_GROTESTK_SEMIBOLD,
   },
+  BODY_BOLD: {
+    fontFamily: FONTS.CLASH_GROTESTK_SEMIBOLD,
+  },
 }

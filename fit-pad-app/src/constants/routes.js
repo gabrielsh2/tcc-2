@@ -12,6 +12,7 @@ export const ROUTES = {
   MEAL_RECORD: 'mealRecord',
   TASKS: 'tasks',
   CREATE_TASK: 'createTask',
+  CREATE_ANTHROPOMETRY: 'createAnthropometry',
 }
 
 export const USER_DEFAULT_ROUTE = {

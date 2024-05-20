@@ -33,6 +33,10 @@ export default function Layout() {
         ...baseVariants.headlineLarge,
         ...FONTS_CONFIG.HEADLINE_LARGE,
       },
+      bodyBold: {
+        ...baseVariants.bodyLarge,
+        ...FONTS_CONFIG.BODY_BOLD,
+      },
     }
 
     const fonts = configureFonts({

@@ -21,9 +21,11 @@ export function AppInput({
   width = '100%',
   customStyle,
   readOnly = false,
+  onPress,
 }) {
   return (
     <StyledTextInput
+      onPress={onPress}
       readOnly={readOnly}
       onContentSizeChange={onContentSizeChange}
       autocomplete={autocomplete}
