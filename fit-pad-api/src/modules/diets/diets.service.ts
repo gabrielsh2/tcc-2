@@ -58,7 +58,7 @@ export class DietsService {
   private async removeMealItems(meals: Meal[]): Promise<void> {
     const mealItems = this.getMealItems(meals);
 
-    this.mealItemRepository.remove(mealItems);
+    await this.mealItemRepository.remove(mealItems);
   }
 
   async createDiet(

@@ -13,6 +13,7 @@ export const ROUTES = {
   TASKS: 'tasks',
   CREATE_TASK: 'createTask',
   CREATE_ANTHROPOMETRY: 'createAnthropometry',
+  CREATE_DIET: 'createDiet',
 }
 
 export const USER_DEFAULT_ROUTE = {

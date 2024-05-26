@@ -86,7 +86,6 @@ export function CreateAnthropometryScreen() {
       setFormData(INITIAL_FORM)
       showSuccessMessage('Registro de antropometria alterado com sucesso.')
     } catch (error) {
-      console.error(error)
       showErrorMessage('Erro ao atualizar antropometria.')
     }
   }

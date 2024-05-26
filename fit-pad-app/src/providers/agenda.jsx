@@ -50,7 +50,6 @@ export function AgendaProvider({ children }) {
       })
       setAgendas(data)
     } catch (error) {
-      console.error(error?.response?.data)
       showErrorMessage('Erro ao buscar por registros na agenda!')
     }
   }

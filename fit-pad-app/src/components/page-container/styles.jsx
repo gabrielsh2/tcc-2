@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     gap: 20,
+    flexGrow: 1,
     padding: 20,
   },
 })

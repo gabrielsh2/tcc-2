@@ -4,6 +4,7 @@ export const COLORS = {
   SECONDARY_BLUE: '#7ac1ff',
   SECONDARY_YELLOW: '#F5F2AC',
   ERROR_RED: '#d3443d',
+  LIGHT_RED: '#f56a6a',
   SUCCESS_GREEN: '#1b9108',
   WHITE: '#FFFFFF',
   DISABLED_COLOR: '#d9e1e8',

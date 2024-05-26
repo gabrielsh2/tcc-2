@@ -1,9 +1,10 @@
 import { Redirect, Stack, router } from 'expo-router'
-import { Button, Text } from 'react-native-paper'
+import { ActivityIndicator, Button, Portal, Text } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   AgendaProvider,
   AnthropometryProvider,
+  DietProvider,
   NutritionistProvider,
   TaskProvider,
   useSession,
@@ -19,27 +20,32 @@ export default function AppLayout() {
   }
 
   if (isLoading) {
-    // TODO: Splash Screen
-    return <Text>Loading...</Text>
+    return (
+      <Portal>
+        <ActivityIndicator animating />
+      </Portal>
+    )
   }
 
   if (userData) {
     return (
       <NutritionistProvider>
-        <AnthropometryProvider>
-          <TaskProvider>
-            <AgendaProvider>
-              <Stack
-                screenOptions={{
-                  ...STACK_DEFAULT_SCREEN_OPTIONS,
-                  headerRight: () => (
-                    <Button onPress={handleLogout}>Sair</Button>
-                  ),
-                }}
-              />
-            </AgendaProvider>
-          </TaskProvider>
-        </AnthropometryProvider>
+        <DietProvider>
+          <AnthropometryProvider>
+            <TaskProvider>
+              <AgendaProvider>
+                <Stack
+                  screenOptions={{
+                    ...STACK_DEFAULT_SCREEN_OPTIONS,
+                    headerRight: () => (
+                      <Button onPress={handleLogout}>Sair</Button>
+                    ),
+                  }}
+                />
+              </AgendaProvider>
+            </TaskProvider>
+          </AnthropometryProvider>
+        </DietProvider>
       </NutritionistProvider>
     )
   }

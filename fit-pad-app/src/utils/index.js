@@ -7,3 +7,4 @@ export {
   getYesterdayString,
   formatDateToDisplay,
 } from './date'
+export { timeMask } from './mask'

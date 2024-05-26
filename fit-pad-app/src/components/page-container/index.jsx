@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { styles } from './styles'
 
 export function PageContainer({ children }) {

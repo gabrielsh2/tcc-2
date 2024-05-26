@@ -1,3 +1,4 @@
+import { COLORS } from '@constants'
 import { StyledTextInput } from './styles'
 
 export function AppInput({
@@ -22,9 +23,11 @@ export function AppInput({
   customStyle,
   readOnly = false,
   onPress,
+  activeUnderlineColor,
 }) {
   return (
     <StyledTextInput
+      activeUnderlineColor={activeUnderlineColor}
       onPress={onPress}
       readOnly={readOnly}
       onContentSizeChange={onContentSizeChange}

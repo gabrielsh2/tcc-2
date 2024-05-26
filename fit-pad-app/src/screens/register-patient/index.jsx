@@ -30,7 +30,6 @@ export function RegisterPatientScreen() {
     }
 
     fetchPatients()
-    console.log(router.canGoBack())
   }, [])
 
   function handlePatientClick(patientId, fullName) {

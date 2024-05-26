@@ -58,7 +58,9 @@ export function MealRecordScreen() {
   }
 
   function isFormValid() {
-    const everyItemHasName = mealItems.every(({ name }) => name)
+    const everyItemHasName = mealItems.every(
+      ({ name, quantity }) => name && quantity
+    )
     const hasItems = mealItems.length
 
     return everyItemHasName && hasItems
@@ -87,6 +89,8 @@ export function MealRecordScreen() {
         mealType: selectedMealType,
         mealItems,
       })
+      await fetchMealRecords()
+      router.back()
       setMealItems([
         {
           name: '',
@@ -95,7 +99,6 @@ export function MealRecordScreen() {
       ])
       setSelectedMealType('')
       showSuccessMessage('Refeição registrada com sucesso.')
-      router.back()
     } catch {
       showErrorMessage('Erro ao registrar refeição.')
     }
@@ -107,6 +110,8 @@ export function MealRecordScreen() {
         mealType: selectedMealType,
         mealItems,
       })
+      await fetchMealRecords()
+      router.back()
       setMealItems([
         {
           name: '',
@@ -115,10 +120,7 @@ export function MealRecordScreen() {
       ])
       setSelectedMealType('')
       showSuccessMessage('Refeição editada com sucesso.')
-      await fetchMealRecords()
-      router.back()
     } catch (error) {
-      console.error()
       showErrorMessage('Erro ao atualizar refeição.')
     }
   }
@@ -157,7 +159,7 @@ export function MealRecordScreen() {
           readOnly={userType === USER_TYPE.NUTRITIONIST}
         />
         <AppInput
-          label='Quantidade'
+          label='Quantidade*'
           value={quantity}
           onChange={(text) => handleMealItemChange('quantity', text, index)}
           customStyle={{ width: 110 }}
@@ -192,21 +194,21 @@ export function MealRecordScreen() {
   return (
     <PageContainer>
       <AppTitle>Refeição</AppTitle>
-      {USER_TYPE === USER_TYPE.PATIENT && (
+      {userType === USER_TYPE.PATIENT && (
         <AppText>Selecione um tipo de refeição:</AppText>
       )}
       {renderMealTypes()}
       {!!selectedMealType && (
         <>
-          {USER_TYPE === USER_TYPE.PATIENT && (
+          {userType === USER_TYPE.PATIENT && (
             <AppText>Preencha os alimentos:</AppText>
           )}
           {renderMealItems()}
-          {USER_TYPE === USER_TYPE.PATIENT && (
+          {userType === USER_TYPE.PATIENT && (
             <>
               <ActionsContainer>
                 <StyledRemove icon='minus' onPress={handleClickRemove} />
-                <StyledAdd icon='plus' onPress={handleClickAdd} />
+                <StyledAdd C icon='plus' onPress={handleClickAdd} />
               </ActionsContainer>
               <AppButton isLoading={isLoading} onPress={handleSubmitMealRecord}>
                 Salvar
