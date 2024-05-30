@@ -1,5 +1,7 @@
 import { Slot } from 'expo-router'
 import { PaperProvider, configureFonts, useTheme } from 'react-native-paper'
+import { setDefaultOptions } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { useFonts } from 'expo-font'
 import { SessionProvider, SnackbarProvider } from '@providers'
 import { FONTS, FONTS_CONFIG, THEME_COLORS } from '@constants'
@@ -9,6 +11,7 @@ export default function Layout() {
     [FONTS.CLASH_GROTESTK_REGULAR]: require('../assets/fonts/ClashGrotesk-Regular.ttf'),
     [FONTS.CLASH_GROTESTK_SEMIBOLD]: require('../assets/fonts/ClashGrotesk-Semibold.ttf'),
   })
+  setDefaultOptions({ locale: ptBR })
   const theme = useTheme()
 
   function getFontConfig() {

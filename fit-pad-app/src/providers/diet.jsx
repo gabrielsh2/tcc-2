@@ -1,4 +1,4 @@
-import { useDietService } from '@services'
+import { useDietService, useSubstitutionList } from '@services'
 import { useSnackbar } from './snackbar'
 import { useGlobalSearchParams } from 'expo-router'
 
@@ -12,8 +12,10 @@ export function useDiet() {
 
 export function DietProvider({ children }) {
   const [diets, setDiets] = useState([])
+  const [substitutionList, setSubstitutionList] = useState(null)
   const { showErrorMessage } = useSnackbar()
   const { findPatientDiets } = useDietService()
+  const { findSubstitutionList } = useSubstitutionList()
   const { id: patientId } = useGlobalSearchParams()
 
   async function fetchDiets() {
@@ -25,8 +27,23 @@ export function DietProvider({ children }) {
     }
   }
 
+  async function fetchSubstitutionList() {
+    try {
+      const { data } = await findSubstitutionList(patientId)
+      setSubstitutionList(data)
+    } catch (error) {
+      if (error?.response?.status === 404) {
+        setSubstitutionList(null)
+      } else {
+        showErrorMessage('Erro ao buscar dietas.')
+      }
+    }
+  }
+
   return (
-    <DietContext.Provider value={{ fetchDiets, diets }}>
+    <DietContext.Provider
+      value={{ fetchDiets, diets, fetchSubstitutionList, substitutionList }}
+    >
       {children}
     </DietContext.Provider>
   )

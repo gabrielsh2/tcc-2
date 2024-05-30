@@ -216,9 +216,10 @@ export function CreateDietScreen() {
 
     const everyNameIsFilled = currentMealItems.every(({ name }) => name)
     const everyFieldIsEmpty = currentMealItems.every(({ name }) => !name)
+    const hasFields = !!currentMealItems.length
     const hasMealType = currentMeal[FIELDS.MEAL_TYPE]
 
-    if (everyNameIsFilled && hasMealType) {
+    if (hasFields && everyNameIsFilled && hasMealType) {
       currentMeal[FIELDS.IS_EDITING] = false
       setFormData({ ...formData })
     } else if (everyFieldIsEmpty && !hasMealType) {

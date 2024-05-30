@@ -6,6 +6,7 @@ export const ROUTES = {
   AGENDA: 'agenda/[id]',
   ANTHROPOMETRY: 'anthropometry/[id]',
   DIET: 'diet/[id]',
+  MEDICAL_PRESCRIPTION: 'medical-prescription/[id]',
   NUTRITIONIST_DASHBOARD: 'nutritionistDashboard',
   REGISTER_PATIENT: 'registerPatient',
   DAILY_NOTE: 'dailyNote',
@@ -14,6 +15,8 @@ export const ROUTES = {
   CREATE_TASK: 'createTask',
   CREATE_ANTHROPOMETRY: 'createAnthropometry',
   CREATE_DIET: 'createDiet',
+  CREATE_SUBSTITUTION_LIST: 'createSubstitutionList',
+  CREATE_MEDICAL_PRESCRIPTION: 'createMedicalPrescription',
 }
 
 export const USER_DEFAULT_ROUTE = {

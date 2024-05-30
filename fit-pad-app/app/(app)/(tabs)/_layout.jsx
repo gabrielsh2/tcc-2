@@ -60,7 +60,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name={ROUTES.ANTHROPOMETRY}
         options={{
-          title: 'Antropometria',
+          title: 'Medidas',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               color={color}
@@ -71,6 +71,26 @@ export default function TabsLayout() {
           ),
           href: {
             pathname: ROUTES.ANTHROPOMETRY,
+            params: {
+              id,
+            },
+          },
+        }}
+      />
+      <Tabs.Screen
+        name={ROUTES.MEDICAL_PRESCRIPTION}
+        options={{
+          title: 'Prescrições',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              color={color}
+              name='medical-bag'
+              size={20}
+              style={{ marginBottom: -3 }}
+            />
+          ),
+          href: {
+            pathname: ROUTES.MEDICAL_PRESCRIPTION,
             params: {
               id,
             },

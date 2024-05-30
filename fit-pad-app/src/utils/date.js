@@ -1,5 +1,7 @@
+import { format } from 'date-fns'
+
 function formatDateString(date) {
-  return date.toISOString().slice(0, 10)
+  return format(date, 'yyyy-MM-dd')
 }
 
 export function getTodayString() {

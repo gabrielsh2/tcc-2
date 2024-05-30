@@ -5,6 +5,7 @@ import {
   AgendaProvider,
   AnthropometryProvider,
   DietProvider,
+  MedicalPrescriptionProvider,
   NutritionistProvider,
   TaskProvider,
   useSession,
@@ -30,22 +31,24 @@ export default function AppLayout() {
   if (userData) {
     return (
       <NutritionistProvider>
-        <DietProvider>
-          <AnthropometryProvider>
-            <TaskProvider>
-              <AgendaProvider>
-                <Stack
-                  screenOptions={{
-                    ...STACK_DEFAULT_SCREEN_OPTIONS,
-                    headerRight: () => (
-                      <Button onPress={handleLogout}>Sair</Button>
-                    ),
-                  }}
-                />
-              </AgendaProvider>
-            </TaskProvider>
-          </AnthropometryProvider>
-        </DietProvider>
+        <MedicalPrescriptionProvider>
+          <DietProvider>
+            <AnthropometryProvider>
+              <TaskProvider>
+                <AgendaProvider>
+                  <Stack
+                    screenOptions={{
+                      ...STACK_DEFAULT_SCREEN_OPTIONS,
+                      headerRight: () => (
+                        <Button onPress={handleLogout}>Sair</Button>
+                      ),
+                    }}
+                  />
+                </AgendaProvider>
+              </TaskProvider>
+            </AnthropometryProvider>
+          </DietProvider>
+        </MedicalPrescriptionProvider>
       </NutritionistProvider>
     )
   }

@@ -47,10 +47,10 @@ export function DailyNoteScreen() {
   async function handleUpdateDailyNote() {
     try {
       await updateDailyNote(dailyNoteId, formData)
+      await fetchDailyNotes()
+      router.back()
       setFormData(INITIAL_FORM)
       showSuccessMessage('Anotação editada com sucesso.')
-      router.back()
-      await fetchDailyNotes()
     } catch {
       showErrorMessage('Erro ao atualizar anotação diária.')
     }
@@ -59,9 +59,10 @@ export function DailyNoteScreen() {
   async function handleCreateDailyNote(agendaId) {
     try {
       await createDailyNote(agendaId, formData)
+      await fetchDailyNotes()
+      router.back()
       setFormData(INITIAL_FORM)
       showSuccessMessage('Anotação criada com sucesso.')
-      router.back()
     } catch {
       showErrorMessage('Erro ao criar anotação diária.')
     }
