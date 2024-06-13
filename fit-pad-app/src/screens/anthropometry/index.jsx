@@ -19,6 +19,7 @@ import {
 import { formatDateToDisplay } from '@utils'
 import { IconButton } from 'react-native-paper'
 import { router, useLocalSearchParams } from 'expo-router'
+import { DayBar } from './components'
 
 export function AnthropometryScreen() {
   const { fetchAnthropometry, currentAnthropometry } = useAnthropometry()
@@ -121,6 +122,7 @@ export function AnthropometryScreen() {
   return (
     <PageContainer>
       <AppTitle>Antropometria</AppTitle>
+      <DayBar />
       {currentAnthropometry && (
         <>
           <StyledContainer>

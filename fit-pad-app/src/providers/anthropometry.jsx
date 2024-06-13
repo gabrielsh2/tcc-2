@@ -32,6 +32,7 @@ export function AnthropometryProvider({ children }) {
         fetchAnthropometry,
         anthropometryRegisters,
         currentAnthropometry,
+        setCurrentAnthropometry,
       }}
     >
       {children}

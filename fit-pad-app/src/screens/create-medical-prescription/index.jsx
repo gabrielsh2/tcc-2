@@ -29,7 +29,6 @@ export function CreateMedicalPrescriptionScreen() {
     const currentPrescription = medicalPrescriptions.find(
       ({ id }) => medicalPrescriptionId == id
     )
-    console.log('oi', currentPrescription)
 
     if (currentPrescription) {
       setFormData(currentPrescription)
