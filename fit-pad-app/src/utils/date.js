@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { addDays, endOfDay, format, startOfDay, subDays } from 'date-fns'
 
 function formatDateString(date) {
   return format(date, 'yyyy-MM-dd')
@@ -17,17 +17,25 @@ export function getCurrentYear() {
 }
 
 export function getTomorrowString(date) {
-  const currentDate = new Date(date)
-  currentDate.setDate(currentDate.getDate() + 1)
+  const newDate = addDays(date, 1)
+  const mappedNewDate = new Date(
+    newDate.getFullYear(),
+    newDate.getMonth(),
+    newDate.getUTCDate()
+  )
 
-  return formatDateString(currentDate)
+  return formatDateString(mappedNewDate)
 }
 
 export function getYesterdayString(date) {
-  const currentDate = new Date(date)
-  currentDate.setDate(currentDate.getDate() - 1)
+  const newDate = subDays(date, 1)
+  const mappedNewDate = new Date(
+    newDate.getFullYear(),
+    newDate.getMonth(),
+    newDate.getUTCDate()
+  )
 
-  return formatDateString(currentDate)
+  return formatDateString(mappedNewDate)
 }
 
 export function formatDateToDisplay(date) {

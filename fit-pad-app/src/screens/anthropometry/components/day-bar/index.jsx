@@ -22,7 +22,6 @@ export function DayBar() {
 
   function hasPrevious() {
     const currentIndex = getCurrentAnthropometryIndex()
-    console.log(currentIndex, anthropometryRegisters.length)
     return currentIndex !== 0
   }
 

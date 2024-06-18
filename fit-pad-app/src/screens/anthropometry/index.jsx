@@ -122,9 +122,9 @@ export function AnthropometryScreen() {
   return (
     <PageContainer>
       <AppTitle>Antropometria</AppTitle>
-      <DayBar />
       {currentAnthropometry && (
         <>
+          <DayBar />
           <StyledContainer>
             <AppText fullWidth={false}>Registro Atual:</AppText>
             {userType === USER_TYPE.NUTRITIONIST && (

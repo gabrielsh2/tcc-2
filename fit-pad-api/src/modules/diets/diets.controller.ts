@@ -32,7 +32,9 @@ export class DietsController {
   }
 
   @Get('/patient/:patientId')
-  async getDietsByPatientId(@Param('id') patientId: number): Promise<Diet[]> {
+  async getDietsByPatientId(
+    @Param('patientId') patientId: number,
+  ): Promise<Diet[]> {
     return this.dietsService.getDietsByPatientId(patientId);
   }
 

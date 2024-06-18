@@ -54,7 +54,7 @@ export function CreateAnthropometryScreen() {
       return mappedDate
     }
 
-    return ''
+    return new Date()
   }
 
   function handleInputChange(name, value) {
